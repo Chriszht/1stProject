@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - Regional Weather</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    primary: '#165DFF',
+                    secondary: '#36CFC9',
+                    neutral: '#F5F7FA',
+                    dark: '#1D2129',
+                },
+                fontFamily: {
+                    inter: ['Inter', 'system-ui', 'sans-serif'],
+                },
+            }
+        }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+        .content-auto {
+            content-visibility: auto;
+        }
+        .btn-primary {
+            @apply bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary/50;
+        }
+        .info-card {
+            @apply bg-white rounded-xl shadow-md p-6 mb-6 transition-all duration-300 hover:shadow-lg;
+        }
+        .contact-item {
+            @apply flex items-center mb-3;
+        }
+        .contact-icon {
+            @apply w-8 h-8 flex items-center justify-center rounded-full bg-primary/10 text-primary mr-3;
+        }
+    }
+  </style>
+</head>
+<body class="font-inter bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen flex flex-col">
+<header class="bg-white shadow-sm">
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-primary flex items-center">
+      <i class="fa fa-cloud mr-2"></i>Regional Weather
+    </h1>
+    <nav>
+      <ul class="flex space-x-6">
+        <li><a href="home.html" class="text-gray-700 hover:text-primary transition-colors duration-300">Home</a></li>
+        <li><a href="about.html" class="text-primary font-medium transition-colors duration-300">About</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="flex-grow container mx-auto px-4 py-8">
+  <section class="max-w-3xl mx-auto">
+    <div class="text-center mb-8">
+      <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-2">About Regional Weather App</h2>
+      <p class="text-gray-600">Learn more about the development and features of my regional weather application.</p>
+    </div>
+
+    <div class="info-card">
+      <h3 class="text-xl font-semibold mb-4 flex items-center">
+        <i class="fa fa-info-circle text-primary mr-2"></i>
+        Application Overview
+      </h3>
+      <p class="mb-4">This regional weather application is designed to provide real-time weather information for various cities and regions worldwide. It uses the OpenWeatherMap API to fetch accurate and up-to-date weather data.</p>
+      <p>You can enter a city or region name in the search bar to check the local weather conditions, including temperature, humidity, wind speed, and more.</p>
+    </div>
+
+    <div class="info-card">
+      <h3 class="text-xl font-semibold mb-4 flex items-center">
+        <i class="fa fa-user-circle text-primary mr-2"></i>
+        Developer Information
+      </h3>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <i class="fa fa-user"></i>
+        </div>
+        <span class="text-gray-800">My Name: <span class="font-medium">Haotian ZHENG</span></span>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <i class="fa fa-envelope"></i>
+        </div>
+        <a href="mailto:chriszhenght@gmail.com" class="text-gray-800 hover:text-primary transition-colors duration-300">
+          Email: <span class="font-medium">chriszhenght@gmail.com</span>
+        </a>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <i class="fa fa-github"></i>
+        </div>
+        <a href="https://github.com/chriszht" target="_blank" class="text-gray-800 hover:text-primary transition-colors duration-300">
+          GitHub: <span class="font-medium">chriszht</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h3 class="text-xl font-semibold mb-4 flex items-center">
+        <i class="fa fa-code-fork text-primary mr-2"></i>
+        Technical Details
+      </h3>
+      <ul class="list-disc pl-5 space-y-2 text-gray-800">
+        <li>Backend: Spring Boot (Java)</li>
+        <li>Frontend: HTML, JavaScript, Tailwind CSS</li>
+        <li>API Integration: OpenWeatherMap</li>
+        <li>Version Control: Git</li>
+        <li>Deployment: Embedded Tomcat Server</li>
+      </ul>
+      <div class="mt-4 text-sm text-gray-600">
+        <p>Designed and developed in 2025.</p>
+        <p class="mt-1">Last updated: 2025-6-18</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="bg-dark text-white py-6">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-col md:flex-row justify-between items-center">
+      <div class="mb-4 md:mb-0">
+        <p>© 2025 Regional Weather App | Powered by <a href="https://openweathermap.org/api" target="_blank" class="text-blue-400 hover:underline">OpenWeather API</a></p>
+      </div>
+      <div class="flex space-x-4">
+        <a href="https://github.com" class="text-gray-400 hover:text-white transition-colors duration-300">
+          <i class="fa fa-github"></i>
+        </a>
+        <a href="https://gmail.com" class="text-gray-400 hover:text-white transition-colors duration-300">
+          <i class="fa fa-google"></i>
+        </a>
+        <a href="https://linkedin.com" class="text-gray-400 hover:text-white transition-colors duration-300">
+          <i class="fa fa-linkedin"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

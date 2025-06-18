@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Result</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    primary: '#165DFF',
+                    secondary: '#36CFC9',
+                    neutral: '#F5F7FA',
+                    dark: '#1D2129',
+                },
+                fontFamily: {
+                    inter: ['Inter', 'system-ui', 'sans-serif'],
+                },
+            }
+        }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+        .content-auto {
+            content-visibility: auto;
+        }
+        .weather-card {
+            @apply bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl;
+        }
+        .btn-primary {
+            @apply bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary/50;
+        }
+        .weather-info {
+            @apply flex items-center justify-between mb-2;
+        }
+        .weather-value {
+            @apply text-lg font-semibold;
+        }
+        .weather-label {
+            @apply text-gray-500;
+        }
+    }
+  </style>
+</head>
+<body class="font-inter bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen flex flex-col">
+<header class="bg-white shadow-sm">
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-primary flex items-center">
+      <i class="fa fa-cloud mr-2"></i>Regional Weather
+    </h1>
+    <nav>
+      <ul class="flex space-x-6">
+        <li><a href="home.html" class="text-gray-700 hover:text-primary transition-colors duration-300">Home</a></li>
+        <li><a href="about.html" class="text-gray-700 hover:text-primary transition-colors duration-300">About</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="flex-grow container mx-auto px-4 py-8">
+  <section class="max-w-2xl mx-auto">
+    <div class="text-center mb-8">
+      <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-2">Weather Information</h2>
+    </div>
+
+    <div class="weather-card">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h3 class="text-2xl font-bold" id="city"></h3>
+          <p class="text-gray-600" id="country"></p>
+        </div>
+        <img id="weatherIconImg" src="" alt="" class="w-20 h-20">
+      </div>
+      <div class="weather-info">
+        <span class="weather-label">Local Time</span>
+        <span class="weather-value" id="localTime"></span>
+      </div>
+      <div class="weather-info">
+        <span class="weather-label">Temperature</span>
+        <span class="weather-value" id="temperature"></span>
+      </div>
+      <div class="weather-info">
+        <span class="weather-label">Description</span>
+        <span class="weather-value" id="description"></span>
+      </div>
+      <div class="weather-info">
+        <span class="weather-label">Feels Like</span>
+        <span class="weather-value" id="feelsLike"></span>
+      </div>
+      <div class="weather-info">
+        <span class="weather-label">Humidity</span>
+        <span class="weather-value" id="humidity"></span>
+      </div>
+      <div class="weather-info">
+        <span class="weather-label">Wind Speed</span>
+        <span class="weather-value" id="windSpeed"></span>
+      </div>
+    </div>
+    <div class="mt-8 text-center">
+      <a href="home.html" class="btn-primary">
+        <i class="fa fa-arrow-left mr-2"></i>Search Another Location
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer class="bg-dark text-white py-6">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-col md:flex-row justify-between items-center">
+      <div class="mb-4 md:mb-0">
+        <p>© 2025 Regional Weather App | Powered by <a href="https://openweathermap.org/api" target="_blank" class="text-blue-400 hover:underline">OpenWeather API</a></p>
+      </div>
+      <div class="flex space-x-4">
+        <a href="https://github.com" class="text-gray-400 hover:text-white transition-colors duration-300">
+          <i class="fa fa-github"></i>
+        </a>
+        <a href="https://gmail.com" class="text-gray-400 hover:text-white transition-colors duration-300">
+          <i class="fa fa-google"></i>
+        </a>
+        <a href="https://linkedin.com" class="text-gray-400 hover:text-white transition-colors duration-300">
+          <i class="fa fa-linkedin"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const location = urlParams.get('location');
+
+    if (location) {
+      fetch(`/api/weather?location=${encodeURIComponent(location)}`)
+       .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+       .then(data => {
+          document.getElementById('city').textContent = data.city;
+          document.getElementById('country').textContent = data.country;
+          document.getElementById('localTime').textContent = `Local Time: ${data.formattedTime}`;
+          document.getElementById('temperature').textContent = `${data.temperature}°C`;
+          document.getElementById('description').textContent = data.description;
+          document.getElementById('feelsLike').textContent = `${data.feelsLike}°C`;
+          document.getElementById('humidity').textContent = `${data.humidity}%`;
+          document.getElementById('windSpeed').textContent = `${data.windSpeed} m/s`;
+          document.getElementById('weatherIconImg').src = data.weatherIconUrl;
+          document.getElementById('weatherIconImg').alt = data.description;
+
+          const timezoneOffsetSeconds = data.timezoneOffsetSeconds; // 获取时区偏移量
+
+          // 每秒更新一次时间
+          setInterval(() => {
+            const now = new Date();
+            const utcTimestamp = now.getTime() + now.getTimezoneOffset() * 60 * 1000; // 获取 UTC 时间戳
+            const localTimestamp = utcTimestamp + timezoneOffsetSeconds * 1000; // 计算当地时间戳
+            const localDate = new Date(localTimestamp);
+
+            const year = localDate.getFullYear();
+            const month = String(localDate.getMonth() + 1).padStart(2, '0');
+            const day = String(localDate.getDate()).padStart(2, '0');
+            const hours = String(localDate.getHours()).padStart(2, '0');
+            const minutes = String(localDate.getMinutes()).padStart(2, '0');
+            const seconds = String(localDate.getSeconds()).padStart(2, '0');
+            const localCurrentTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+            document.getElementById('localTime').textContent = `Local Time: ${localCurrentTime}`;
+          }, 1000);
+        })
+       .catch(error => {
+          window.location.href = `error.html?message=${encodeURIComponent(error.message)}`;
+        });
+    }
+  });
+</script>
+</body>
+</html>
